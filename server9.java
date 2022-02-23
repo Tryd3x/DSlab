@@ -17,29 +17,29 @@ class server9 {
             br1 = new BufferedReader(new InputStreamReader(System.in));
 
             while (true) {
-                //get input from console
+                // get input from console
                 System.out.println("Enter the data to send");
                 str1 = br1.readLine();
                 data1 = str1.getBytes();
 
-                //create an outgoing packet to send data
+                // create an outgoing packet to send data
                 outgoing = new DatagramPacket(data1, data1.length, InetAddress.getLocalHost(), clientport);
                 ds.send(outgoing);
-                if (str1.equals("bye"))
-                    break;
+                // if (str1.equals("bye"))
+                //     break;
 
-                //create an incoming packet to receive data
+                // create an incoming packet to receive data
                 incoming = new DatagramPacket(data2, data2.length);
                 ds.receive(incoming);
-                
-                //Parse and display data from incoming packet
+
+                // Parse and display data from incoming packet
                 str2 = new String(incoming.getData());
                 System.out.println("Received Data:\n" + str2);
                 if (str2.equals("bye"))
                     break;
             }
-        } catch(Exception e) {
-            System.out.println("Exception: "+e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
         }
     }
 }

@@ -3,21 +3,22 @@ import java.net.*;
 
 class client8 {
     public static void main(String[] args) {
-        String str1 = " ";
-        String str2 = " ";
+        String str1, str2;
         BufferedReader br1, br2;
         PrintWriter pw;
-        Socket s;
+        Socket client;
 
         try {
-            s = new Socket("localhost", 5678);
-            System.out.println("Socket Created" + s);
+            int serverport = 5678;
+            client = new Socket("localhost", serverport);
+            System.out.println("Socket Created" + client);
+            
             // reader for reading input from console
             br1 = new BufferedReader(new InputStreamReader(System.in));
             // reader for reading data from server
-            br2 = new BufferedReader(new InputStreamReader(s.getInputStream()));
+            br2 = new BufferedReader(new InputStreamReader(client.getInputStream()));
             // writer for writing data to server
-            pw = new PrintWriter(s.getOutputStream(), true);
+            pw = new PrintWriter(client.getOutputStream(), true);
             while (true) {
                 // receive data from Server
                 str1 = br2.readLine();
