@@ -1,9 +1,3 @@
-// import java.io.DataInputStream;
-// import java.io.File;
-// import java.io.FileInputStream;
-// import java.io.FileOutputStream;
-// import java.io.PrintStream;
-
 import java.io.*;
 import java.net.*;
 
@@ -25,18 +19,20 @@ public class server1 {
                 System.out.println("Upload text");
 
                 // receive filename from client
-                String inputfile = input.readLine();
+                String filename = input.readLine(); // just filename
 
-                // points to location and creates an empty file with name "inputfile"
-                File serverfile = new File("./server-files/" + inputfile);
+                // points to location and creates an empty file with name "filename" in server
+                File file = new File("./server-files/" + filename);
 
-                // writer to write data into the file with name "serverfile"
-                FileOutputStream fout = new FileOutputStream(serverfile);
+                //STORAGE
+                // writer to write data into the file with name "file" in server
+                FileOutputStream fout = new FileOutputStream(file);
 
                 // process to writing data into the file,character by character
                 int ch;
                 while ((ch = input.read()) != -1) {
-                    fout.write((char) ch);
+                    //typecast into character equivalent of ASCII
+                    fout.write((char) ch); 
                 }
                 fout.close();
                 input.close();
@@ -44,16 +40,19 @@ public class server1 {
             
             if (option.equals("download")) {
                 System.out.println("download text");
-                String inputfile = input.readLine();
+                //receive path of file located in server
+                String path = input.readLine();
 
-                File clientfile = new File(inputfile);
-                // reader for reading contents from file named "clientfile"
-                FileInputStream fin = new FileInputStream(clientfile);
+                // points to location and creates pointer to that file in 'path'
+                File file = new File(path);
+
+                // reader for reading contents from file named "file"
+                FileInputStream fin = new FileInputStream(file);
 
                 // send file to client
-                int n;
-                while ((n = fin.read()) != -1) {
-                    output.print((char) n);
+                int ch;
+                while ((ch = fin.read()) != -1) {
+                    output.print((char) ch);
                 }
                 fin.close();
                 output.close();

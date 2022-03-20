@@ -8,6 +8,7 @@ public class client5 {
             client = new DatagramSocket();
             byte[] buffer = new byte[1000];
 
+
             // create an outgoing packet to send data
             DatagramPacket outgoing = new DatagramPacket(args[1].getBytes(), args[1].length(),
                     InetAddress.getByName(args[0]), serverport);

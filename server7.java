@@ -48,8 +48,9 @@ public class server7 extends JFrame implements ActionListener {
         try {
             int serverport = 5000;
             server = new ServerSocket(serverport, 100);
+            textarea.setText("Waiting for client...\n");
             client = server.accept();
-            textarea.setText("Connected to client!\n");
+            textarea.append("Connected to client!\n");
             output = new DataOutputStream(client.getOutputStream());
             input = new DataInputStream(client.getInputStream());
         } catch (Exception e) {

@@ -29,8 +29,8 @@ public class server2 {
             server = new ServerSocket(serverport);
             client = server.accept();
             System.out.println("Client connected");
-            output = new DataOutputStream(client.getOutputStream());
             input = new DataInputStream(client.getInputStream());
+            output = new DataOutputStream(client.getOutputStream());
         } catch (Exception e) {
             e.printStackTrace();
         }

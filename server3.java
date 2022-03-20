@@ -15,8 +15,8 @@ public class server3 extends JFrame implements ActionListener {
 
     ServerSocket server;
     Socket client;
-    DataInputStream din;
-    PrintWriter pw;
+    DataInputStream input;
+    PrintWriter output;
 
     public server3() {
         super("Server Window");
@@ -24,15 +24,14 @@ public class server3 extends JFrame implements ActionListener {
         panel.add(label);
         panel.add(textfield);
         panel.add(sendbtn);
-        add(panel, BorderLayout.SOUTH);
 
+        add(panel, BorderLayout.SOUTH);
         add(scrollpane);
-        textarea.setEditable(false);
 
         sendbtn.addActionListener(this);
         textfield.addActionListener(this);
-        
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        textarea.setEditable(false);
         setSize(500, 500);
         setVisible(true);
         try {
@@ -41,8 +40,8 @@ public class server3 extends JFrame implements ActionListener {
             textarea.setText("Server is waiting for Client\n");
             client = server.accept();
             textarea.append("Client is now Connected\n");
-            din = new DataInputStream(client.getInputStream());
-            pw = new PrintWriter(client.getOutputStream());
+            input = new DataInputStream(client.getInputStream());
+            output = new PrintWriter(client.getOutputStream());
         } catch (Exception e) {
             System.out.println("Exception: " + e.getMessage());
         }
@@ -51,7 +50,7 @@ public class server3 extends JFrame implements ActionListener {
     public void receive() {
         try {
             String msg;
-            while((msg=din.readLine()) != null) {
+            while((msg=input.readLine()) != null) {
                 String temp = "\nClient: "+msg;
                 textarea.append(temp);
             }
@@ -64,8 +63,8 @@ public class server3 extends JFrame implements ActionListener {
         try{
             String msg = "\nServer: "+textfield.getText();
             textarea.append(msg);
-            pw.println(textfield.getText());
-            pw.flush();
+            output.println(textfield.getText());
+            output.flush();
             textfield.setText("");
         } catch(Exception e) {
             System.out.println("Exception: "+e.getMessage());
